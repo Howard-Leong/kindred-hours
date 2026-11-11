@@ -1,0 +1,149 @@
+:root {
+  color-scheme: light;
+  --paper: #F6EEE3;
+  --ink: #374D6D;
+  --accent: #AC6CA6;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-synthesis: none;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; }
+::selection { background: var(--accent); color: var(--paper); }
+a { color: inherit; text-underline-offset: 0.2em; }
+a:focus-visible { outline: 2px solid var(--ink); outline-offset: 7px; }
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  transform: translateY(-200%);
+  z-index: 2;
+  padding: 0.75rem;
+  background: var(--paper);
+}
+.skip-link:focus { transform: none; }
+
+.opening {
+  min-height: 88svh;
+  padding: 15svh 6vw 8svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+h1 {
+  font-size: clamp(4rem, 11vw, 9rem);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -0.065em;
+  margin: auto 0;
+}
+.title-accent { display: inline-block; position: relative; }
+.title-accent::after,
+.kindred-phrase::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.08em;
+  height: 0.045em;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  border-radius: 50%;
+}
+.title-accent::after { animation: underline-in 1.4s 0.4s ease forwards; }
+.scroll-cue {
+  margin-top: 4rem;
+  font-family: system-ui, sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.scroll-cue span { display: block; margin-top: 1rem; font-size: 1.15rem; }
+main { width: min(100% - 3rem, 760px); margin: 0 auto; }
+.story { padding-top: 4rem; }
+p {
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  line-height: 1.85;
+  margin: 0 0 clamp(4rem, 10vw, 8rem);
+}
+.statement {
+  font-size: clamp(2rem, 4.8vw, 3.4rem);
+  line-height: 1.4;
+  letter-spacing: -0.025em;
+  padding: 2rem 0;
+}
+.kindred-phrase { position: relative; display: inline-block; }
+.kindred-phrase.is-awake { animation: accent-bloom 1.8s ease both; }
+.kindred-phrase.is-awake::after { animation: underline-in 1.2s ease forwards; }
+.principles { padding-top: 3rem; }
+h2 {
+  font-size: clamp(2.1rem, 5vw, 3.6rem);
+  font-weight: 400;
+  letter-spacing: -0.035em;
+  line-height: 1.3;
+  margin: 0 0 6rem;
+}
+ol { padding-left: 2rem; margin: 0; }
+li { padding-left: 1rem; margin-bottom: 3.75rem; }
+li::marker { color: var(--accent); font-size: 1rem; }
+h3 { font-size: clamp(1.25rem, 2.5vw, 1.6rem); line-height: 1.5; margin: 0 0 0.6rem; }
+li p { font-size: clamp(1.1rem, 2.1vw, 1.35rem); margin: 0; }
+.invitation { padding: 5rem 0 max(8rem, 25svh); }
+.invitation p { font-size: clamp(1.6rem, 3.5vw, 2.4rem); line-height: 1.6; margin: 0; }
+.invitation a { text-decoration-color: var(--accent); text-decoration-thickness: 2px; }
+.invitation a:hover { text-decoration-thickness: 4px; }
+
+/* Whole words wrap naturally; letters brighten in scroll order. */
+.reveal-word { white-space: nowrap; }
+.reveal-char { opacity: 0.16; transition: opacity 100ms linear; }
+.reveal-char.is-visible { opacity: 1; }
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+.sr-only:focus-within {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  clip-path: none;
+  white-space: normal;
+}
+.sr-only:focus-within + [aria-hidden] { display: none; }
+
+@keyframes underline-in { to { transform: scaleX(1); } }
+@keyframes accent-bloom {
+  0%, 100% { color: var(--ink); }
+  45% { color: var(--accent); }
+}
+@media (max-width: 480px) {
+  .opening { min-height: 78svh; }
+  h1 { font-size: clamp(3.7rem, 16vw, 5rem); }
+  main { width: calc(100% - 2.5rem); }
+  .story { padding-top: 2rem; }
+  ol { padding-left: 1.5rem; }
+  li { padding-left: 0.4rem; }
+  h2 { margin-bottom: 3.5rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .reveal-char { opacity: 1; }
+  .title-accent::after, .kindred-phrase::after { transform: scaleX(1); }
+}
