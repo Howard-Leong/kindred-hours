@@ -29,10 +29,11 @@ Telephone links work on supported devices. Scroll animation runs automatically,
 with no visible controls or scroll prompts. Device reduced-motion preferences
 disable animation and keep all text readable.
 
-Hovering over the title or either “kindred hours” phrase blooms a soft,
-accent-coloured radial highlight behind the text. It does not shift the layout
-or interfere with scroll reveals. With reduced motion, the highlight appears
-without animation. Touch devices do not require hover to read any content.
+Hovering over the title or either “kindred hours” phrase sweeps the accent colour
+radially outward inside the letters using a text-clipped gradient. There is no
+background glow or shadow. It does not shift the layout or interfere with scroll
+reveals. With reduced motion, the colour changes without animation. Touch devices
+do not require hover to read any content.
 
 ## Browser checks
 
