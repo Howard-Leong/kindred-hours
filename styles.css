@@ -58,28 +58,6 @@ h1 {
   border-radius: 50%;
 }
 .title-accent::after { animation: underline-in 1.4s 0.4s ease forwards; }
-.scroll-cue {
-  margin-top: 4rem;
-  font-family: system-ui, sans-serif;
-  font-size: 0.7rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  text-decoration: none;
-}
-.scroll-cue span { display: block; margin-top: 1rem; font-size: 1.15rem; }
-.motion-toggle {
-  margin-top: 1.5rem;
-  padding: 0.5rem;
-  border: 0;
-  background: none;
-  color: var(--ink);
-  font: 0.75rem system-ui, sans-serif;
-  text-decoration: underline;
-  text-decoration-color: var(--accent);
-  text-underline-offset: 0.3em;
-  cursor: pointer;
-}
-.motion-toggle:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
 main { width: min(100% - 3rem, 660px); margin: 0 auto; }
 .story { padding-top: 4rem; }
 p {

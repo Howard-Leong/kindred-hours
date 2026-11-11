@@ -2,7 +2,6 @@
   'use strict';
 
   const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const motionToggle = document.querySelector('.motion-toggle');
   let motionEnabled = !motionPreference.matches;
   const blocks = [];
   let framePending = false;
@@ -92,13 +91,9 @@
   function setMotion(enabled) {
     motionEnabled = enabled;
     document.documentElement.dataset.motion = enabled ? 'on' : 'off';
-    motionToggle.textContent = `Scroll animation: ${enabled ? 'on' : 'off'}`;
-    motionToggle.setAttribute('aria-pressed', String(enabled));
     scheduleUpdate();
   }
 
-  motionToggle.hidden = false;
-  motionToggle.addEventListener('click', () => setMotion(!motionEnabled));
   if (motionPreference.addEventListener) {
     motionPreference.addEventListener('change', () => setMotion(!motionPreference.matches));
   } else {

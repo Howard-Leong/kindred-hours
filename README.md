@@ -25,10 +25,9 @@ Expected address: https://howard-leong.github.io/kindred-hours/
 
 Text reveals when scrolling down and dims again when scrolling back up. Words
 wrap as a unit, and the complete text remains available to screen readers.
-Telephone links work on supported devices. The text-only scroll animation
-control allows visitors to disable motion, or explicitly enable it even when
-their device requests reduced motion. The device preference is respected by
-default.
+Telephone links work on supported devices. Scroll animation runs automatically,
+with no visible controls or scroll prompts. Device reduced-motion preferences
+disable animation and keep all text readable.
 
 ## Browser checks
 
