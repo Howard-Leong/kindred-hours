@@ -74,6 +74,29 @@ p {
 .kindred-phrase { position: relative; display: inline-block; }
 .kindred-phrase.is-awake { animation: accent-bloom 1.8s ease both; }
 .kindred-phrase.is-awake::after { animation: underline-in 1.2s ease forwards; }
+
+/* A decorative bloom behind the text, independent of the scroll underline. */
+.radial-highlight,
+.kindred-phrase { position: relative; isolation: isolate; }
+.radial-highlight::before,
+.kindred-phrase::before {
+  content: '';
+  position: absolute;
+  inset: -0.3em -0.25em;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, #AC6CA64D 0%, #AC6CA62E 40%, #AC6CA600 72%);
+  opacity: 0;
+  transform: scale(0.35);
+  transition: transform 650ms cubic-bezier(0.16, 1, 0.3, 1), opacity 400ms ease;
+}
+.radial-highlight:hover::before,
+.kindred-phrase:hover::before {
+  opacity: 1;
+  transform: scale(1);
+}
+.kindred-phrase:hover .reveal-char { opacity: 1; }
 .principles { padding-top: 3rem; }
 h2 {
   font-size: clamp(1.6rem, 3.2vw, 2.5rem);

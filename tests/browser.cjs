@@ -69,6 +69,24 @@ const assert = require('node:assert/strict');
       assert(await page.locator('.sr-only a').isVisible());
       assert.equal(await page.locator('.sr-only a').getAttribute('href'), 'tel:+14373837187');
       assert.deepEqual(errors, []);
+      for (const target of [page.locator('.radial-highlight'), page.locator('.kindred-phrase').first(), page.locator('.kindred-phrase').last()]) {
+        await page.mouse.move(0, 0);
+        await page.waitForTimeout(450);
+        assert.equal(await target.evaluate(e => getComputedStyle(e, '::before').opacity), '0');
+        const before = await target.boundingBox();
+        await target.hover();
+        await page.waitForTimeout(750);
+        const bloom = await target.evaluate(e => {
+          const style = getComputedStyle(e, '::before');
+          return { opacity: style.opacity, transform: style.transform, background: style.backgroundImage };
+        });
+        assert.equal(bloom.opacity, '1');
+        assert.equal(bloom.transform, 'matrix(1, 0, 0, 1, 0, 0)');
+        assert(bloom.background.includes('radial-gradient'));
+        const after = await target.boundingBox();
+        assert.equal(after.width, before.width);
+        assert.equal(after.height, before.height);
+      }
       await page.screenshot({ path: `/tmp/kindred-hours-${width}.png`, fullPage: true });
       console.log(`PASS ${width}px: palette, content, wrapping, scrolling, accent, keyboard link; ${total} letters`);
       await page.close();
@@ -77,6 +95,8 @@ const assert = require('node:assert/strict');
     await reduced.goto(process.env.SITE_URL || 'http://127.0.0.1:8000');
     assert.equal(await reduced.locator('.reveal-char').count(), await reduced.locator('.reveal-char.is-visible').count());
     assert.equal(await reduced.locator('.title-accent').evaluate(e => getComputedStyle(e, '::after').animationName), 'none');
+    await reduced.locator('.radial-highlight').hover();
+    assert.equal(await reduced.locator('.radial-highlight').evaluate(e => getComputedStyle(e, '::before').transitionDuration), '0s');
     await reduced.emulateMedia({ reducedMotion: 'no-preference' });
     await reduced.waitForTimeout(250);
     assert(await reduced.locator('.reveal-char.is-visible').count() < await reduced.locator('.reveal-char').count());
