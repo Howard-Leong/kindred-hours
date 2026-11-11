@@ -37,7 +37,7 @@ a:focus-visible { outline: 2px solid var(--ink); outline-offset: 7px; }
   text-align: center;
 }
 h1 {
-  font-size: clamp(4rem, 11vw, 9rem);
+  font-size: clamp(3rem, 8vw, 6rem);
   font-weight: 400;
   line-height: 1.02;
   letter-spacing: -0.065em;
@@ -80,15 +80,15 @@ h1 {
   cursor: pointer;
 }
 .motion-toggle:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
-main { width: min(100% - 3rem, 760px); margin: 0 auto; }
+main { width: min(100% - 3rem, 660px); margin: 0 auto; }
 .story { padding-top: 4rem; }
 p {
-  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
   line-height: 1.85;
   margin: 0 0 clamp(4rem, 10vw, 8rem);
 }
 .statement {
-  font-size: clamp(2rem, 4.8vw, 3.4rem);
+  font-size: clamp(1.5rem, 3vw, 2.4rem);
   line-height: 1.4;
   letter-spacing: -0.025em;
   padding: 2rem 0;
@@ -98,7 +98,7 @@ p {
 .kindred-phrase.is-awake::after { animation: underline-in 1.2s ease forwards; }
 .principles { padding-top: 3rem; }
 h2 {
-  font-size: clamp(2.1rem, 5vw, 3.6rem);
+  font-size: clamp(1.6rem, 3.2vw, 2.5rem);
   font-weight: 400;
   letter-spacing: -0.035em;
   line-height: 1.3;
@@ -107,10 +107,10 @@ h2 {
 ol { padding-left: 2rem; margin: 0; }
 li { padding-left: 1rem; margin-bottom: 3.75rem; }
 li::marker { color: var(--accent); font-size: 1rem; }
-h3 { font-size: clamp(1.25rem, 2.5vw, 1.6rem); line-height: 1.5; margin: 0 0 0.6rem; }
-li p { font-size: clamp(1.1rem, 2.1vw, 1.35rem); margin: 0; }
+h3 { font-size: clamp(1.05rem, 1.6vw, 1.2rem); line-height: 1.5; margin: 0 0 0.6rem; }
+li p { font-size: clamp(1rem, 1.4vw, 1.1rem); margin: 0; }
 .invitation { padding: 5rem 0 max(8rem, 25svh); }
-.invitation p { font-size: clamp(1.6rem, 3.5vw, 2.4rem); line-height: 1.6; margin: 0; }
+.invitation p { font-size: clamp(1.2rem, 2.3vw, 1.7rem); line-height: 1.6; margin: 0; }
 .invitation a { text-decoration-color: var(--accent); text-decoration-thickness: 2px; }
 .invitation a:hover { text-decoration-thickness: 4px; }
 
@@ -147,7 +147,7 @@ li p { font-size: clamp(1.1rem, 2.1vw, 1.35rem); margin: 0; }
 }
 @media (max-width: 480px) {
   .opening { min-height: 78svh; }
-  h1 { font-size: clamp(3.7rem, 16vw, 5rem); }
+  h1 { font-size: clamp(2.8rem, 12vw, 3.5rem); }
   main { width: calc(100% - 2.5rem); }
   .story { padding-top: 2rem; }
   ol { padding-left: 1.5rem; }
