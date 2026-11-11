@@ -25,6 +25,28 @@ const assert = require('node:assert/strict');
       assert(total > 2000 && initial < total);
       await page.evaluate(() => {
         document.documentElement.style.scrollBehavior = 'auto';
+        const paragraph = document.querySelector('.story p');
+        scrollTo(0, scrollY + paragraph.getBoundingClientRect().top - innerHeight * 0.75);
+      });
+      await page.waitForTimeout(250);
+      assert.equal(await page.locator('.story p').first().locator('.is-visible').count(), 0);
+      await page.evaluate(() => {
+        const paragraph = document.querySelector('.story p');
+        scrollTo(0, scrollY + paragraph.getBoundingClientRect().top - innerHeight * 0.60);
+      });
+      await page.waitForTimeout(250);
+      const paragraph = page.locator('.story p').first();
+      const partial = await paragraph.locator('.is-visible').count();
+      const paragraphTotal = await paragraph.locator('.reveal-char').count();
+      assert(partial > 0 && partial < paragraphTotal);
+      await page.evaluate(() => {
+        const paragraph = document.querySelector('.story p');
+        scrollTo(0, scrollY + paragraph.getBoundingClientRect().bottom - innerHeight * 0.44);
+      });
+      await page.waitForTimeout(250);
+      assert.equal(await paragraph.locator('.is-visible').count(), paragraphTotal);
+      await page.evaluate(() => {
+        document.documentElement.style.scrollBehavior = 'auto';
         scrollTo(0, 1400);
       });
       await page.waitForTimeout(200);

@@ -66,8 +66,9 @@
 
     blocks.forEach((block, index) => {
       const rect = bounds[index];
+      // Reveal from 65% of the viewport; finish as the block's bottom reaches 45%.
       const progress = !motionEnabled || atBottom ? 1 :
-        Math.max(0, Math.min(1, (height * 0.85 - rect.top) / (rect.height + height * 0.15)));
+        Math.max(0, Math.min(1, (height * 0.65 - rect.top) / (rect.height + height * 0.2)));
       const count = Math.ceil(progress * block.letters.length);
       for (let i = Math.min(block.count, count); i < Math.max(block.count, count); i++) {
         block.letters[i].classList.toggle('is-visible', i < count);
