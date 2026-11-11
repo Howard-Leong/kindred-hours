@@ -23,9 +23,12 @@ Expected address: https://howard-leong.github.io/kindred-hours/
 - `styles.css`: colours, typography, layout, and accent animations.
 - `script.js`: progressive, scroll-linked letter reveals.
 
-Already-read text remains illuminated when scrolling back up. Words wrap as a
-unit, and the complete text remains available to screen readers. Telephone
-links work on supported devices.
+Text reveals when scrolling down and dims again when scrolling back up. Words
+wrap as a unit, and the complete text remains available to screen readers.
+Telephone links work on supported devices. The text-only scroll animation
+control allows visitors to disable motion, or explicitly enable it even when
+their device requests reduced motion. The device preference is respected by
+default.
 
 ## Browser checks
 

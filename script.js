@@ -2,6 +2,8 @@
   'use strict';
 
   const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const motionToggle = document.querySelector('.motion-toggle');
+  let motionEnabled = !motionPreference.matches;
   const blocks = [];
   let framePending = false;
 
@@ -64,15 +66,16 @@
 
     blocks.forEach((block, index) => {
       const rect = bounds[index];
-      const progress = motionPreference.matches || atBottom ? 1 :
-        Math.max(0, Math.min(1, (height * 0.88 - rect.top) / (rect.height + height * 0.3)));
-      // Keep already-read text illuminated when scrolling back up.
-      const count = Math.max(block.count, Math.ceil(progress * block.letters.length));
-      for (let i = block.count; i < count; i++) block.letters[i].classList.add('is-visible');
+      const progress = !motionEnabled || atBottom ? 1 :
+        Math.max(0, Math.min(1, (height * 0.85 - rect.top) / (rect.height + height * 0.15)));
+      const count = Math.ceil(progress * block.letters.length);
+      for (let i = Math.min(block.count, count); i < Math.max(block.count, count); i++) {
+        block.letters[i].classList.toggle('is-visible', i < count);
+      }
       block.count = count;
       for (const phrase of block.phrases) {
         const lastLetter = phrase.querySelector('.reveal-word:last-child .reveal-char:last-child');
-        if (lastLetter?.classList.contains('is-visible')) phrase.classList.add('is-awake');
+        phrase.classList.toggle('is-awake', motionEnabled && Boolean(lastLetter?.classList.contains('is-visible')));
       }
     });
   }
@@ -85,6 +88,22 @@
 
   window.addEventListener('scroll', scheduleUpdate, { passive: true });
   window.addEventListener('resize', scheduleUpdate);
-  motionPreference.addEventListener('change', scheduleUpdate);
+  function setMotion(enabled) {
+    motionEnabled = enabled;
+    document.documentElement.dataset.motion = enabled ? 'on' : 'off';
+    motionToggle.textContent = `Scroll animation: ${enabled ? 'on' : 'off'}`;
+    motionToggle.setAttribute('aria-pressed', String(enabled));
+    scheduleUpdate();
+  }
+
+  motionToggle.hidden = false;
+  motionToggle.addEventListener('click', () => setMotion(!motionEnabled));
+  if (motionPreference.addEventListener) {
+    motionPreference.addEventListener('change', () => setMotion(!motionPreference.matches));
+  } else {
+    motionPreference.addListener(() => setMotion(!motionPreference.matches));
+  }
+  window.addEventListener('pageshow', scheduleUpdate);
+  setMotion(motionEnabled);
   update();
 })();
